@@ -1,5 +1,40 @@
 # RISC-V Microarchitecture Design
 ## Day 0
+### Installation of Required Tools
+First clone the following Github repository into your main working directory.
+```
+git clone https://github.com/kunalg123/riscv_workshop_collaterals.git
+```
+
+Next type in the following commands to install the RISCV GNU toolchain.
+```
+sudo apt install libboost-all-dev
+cd riscv_workshop_collaterals
+chmod +x run.sh
+./run.sh
+```
+
+Ignore the error shown at the end of compilation and type the following.
+```
+cd ~/riscv_toolchain/iverilog/
+git checkout --track -b v10-branch origin/v10-branch
+git pull
+chmod 777 autoconf.sh
+./autoconf.sh
+./configure
+make
+sudo make install
+```
+
+Next, to set the $PATH variable in `.bashrc` type the following into the terminal.
+```
+gedit .bashrc
+export PATH="/home/[your_username]/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin:$PATH"
+# Close the .bashrc and type in terminal
+source .bashrc
+```
+
+### RISC-V ISA
 
 
 ## Contributors
@@ -14,10 +49,4 @@
 * Kunal Ghosh, Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com
 
 ## References
-* Wikipedia -- https://en.wikipedia.org/wiki/Logic_synthesis
-* IcarusVerilog Wikipedia -- https://en.wikipedia.org/wiki/Icarus_Verilog
-* Yosys Documentation -- https://yosyshq.net/yosys/
-* Magic -- http://www.opencircuitdesign.com/magic/; https://en.wikipedia.org/wiki/Magic_(software)#:~:text=Magic%20is%20an%20electronic%20design,the%20project%20in%20February%201983.
-* OpenLane -- https://github.com/The-OpenROAD-Project/OpenLane
-* NGspice -- https://ngspice.sourceforge.io/presentation.html
-* OpenSTA -- https://github.com/The-OpenROAD-Project/OpenSTA
+* VSD workshop -- https://www.vsdiat.com/
