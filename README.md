@@ -1,5 +1,5 @@
 # RISC-V Microarchitecture Design
-## Day 0
+## Day 1
 ### Installation of Required Tools
 First clone the following Github repository into your main working directory.
 ```
