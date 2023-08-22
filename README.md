@@ -145,6 +145,7 @@ For base integer instructions there are mainly 3 types of of such registers:
 * I-Type (Immediate Type) - These instructions have an immediate (constant) value as one of their operands, and they work with a source register to perform operations like arithmetic, logical, and memory operations.
 * R-Type (Register Type) - These instructions involve operations that operate on two source registers and store the result in a destination register. They include arithmetic, logical, and bitwise operations.
 * S-Type (Store Type) - S-type instructions are used for storing data into memory. They combine a source register, a destination address (base register), and an immediate offset to determine where the data should be stored.
+
 Below image shows all base instruction formats for RISC-V.
 
 ![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/isa.png)
