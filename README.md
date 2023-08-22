@@ -66,7 +66,7 @@ Next, to compile the program with the RISC-V toolchain and view the assembly cod
 riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton_O1.o sum1ton.c
 riscv64-unknown-elf-objdump -d sum1ton_O1.o | less
 ```
-![alt text](https://github.com/aamodbk/iiitb_asic_course/blob/main/assmain.png)
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/assmain.png)
 
 The number of instructions for the main program is seen as 15 from the above image.
 To execute the assembly instructions, type the following.
@@ -86,7 +86,7 @@ The above code can also be compiled in a different mode/optimization level as sh
 riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o sum1ton_Ofast.o sum1ton.c
 riscv64-unknown-elf-objdump -d sum1ton_Ofast.o | less
 ```
-![alt text](https://github.com/aamodbk/iiitb_asic_course/blob/main/assmain2.png)
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/assmain2.png)
 
 As seen from the above image, the number of assembly instructions required for the main program has reduced.
 
@@ -128,9 +128,9 @@ int main()
 
 The results of the above codes are as shown below.
 
-![alt text](https://github.com/aamodbk/iiitb_asic_course/blob/main/unsigned.png)
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/unsigned.png)
 
-![alt text](https://github.com/aamodbk/iiitb_asic_course/blob/main/signed.png)
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/signed.png)
 
 ## Day 2
 
