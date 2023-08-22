@@ -68,7 +68,7 @@ riscv64-unknown-elf-objdump -d sum1ton_O1.o | less
 ```
 ![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/assmain.png)
 
-The number of instructions for the main program is seen as 15 from the above image.
+The number of instructions for the main program is seen as 14 from the above image.
 To execute the assembly instructions, type the following.
 
 ```
@@ -88,7 +88,7 @@ riscv64-unknown-elf-objdump -d sum1ton_Ofast.o | less
 ```
 ![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/assmain2.png)
 
-As seen from the above image, the number of assembly instructions required for the main program has reduced.
+As seen from the above image, the number of assembly instructions required for the main program has reduced to 11.
 
 ### Number system in RISC-V
 The RISC-V architecture employs well-defined specifications for its number system representations. For integers, RISC-V offers both signed and unsigned representations with various data widths, such as 8-bit, 16-bit, 32-bit, and 64-bit, providing flexibility to accommodate different ranges of whole numbers. The integer representations adhere to two's complement and sign-magnitude formats, allowing efficient arithmetic operations. For floating-point numbers, RISC-V adheres to the IEEE 754 standard, supporting both single-precision (32-bit) and double-precision (64-bit) formats.
@@ -133,6 +133,82 @@ The results of the above codes are as shown below.
 ![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/signed.png)
 
 ## Day 2
+### Application Binary Interface (ABI)
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/ABI.png)
+
+Application Binary Interface (ABI) refers to a standardized interface that defines how software interacts with a RISC-V processor and the underlying system. The RISC-V ABI encompasses rules and conventions for various aspects, including function calling conventions, parameter passing, register usage, memory layout, and system calls. The ABI defines important details, such as how function arguments are passed, which registers are preserved across function calls, and how exceptions and system calls are handled.
+In RISC V architecture, the width of the register is defined as XLEN. For RV64 and RV32, the widths are 64 bits and 32 bits, respectively.
+
+The ABI uses 32 different registers which are each of width XLEN = 32 bit for RV32 (XLEN = 64 for RV64). On a higher level of abstraction these registers are accessed by their respective ABI names.
+For base integer instructions there are mainly 3 types of of such registers:
+* I-Type (Immediate Type) - These instructions have an immediate (constant) value as one of their operands, and they work with a source register to perform operations like arithmetic, logical, and memory operations.
+* R-Type (Register Type) - These instructions involve operations that operate on two source registers and store the result in a destination register. They include arithmetic, logical, and bitwise operations.
+* S-Type (Store Type) - S-type instructions are used for storing data into memory. They combine a source register, a destination address (base register), and an immediate offset to determine where the data should be stored.
+Below image shows all base instruction formats for RISC-V.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/isa.png)
+
+Re-writing the previous `sum1ton.c` code, we create a new file `1to9_custom.c` as follows.
+```
+#include <stdio.h>
+
+extern int load(int x, int y); 
+
+int main() {
+	int result = 0;
+    int count = 2;
+    result = load(0x0, count+1);
+    printf("Sum of number from 1 to %d is %d\n", count, result); 
+}
+```
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/algo.png)
+
+Following the above algorithm, we also create an assembly file `load.S`.
+```
+.section .text
+.global load
+.type load, @function
+
+load:
+	add 	a4, a0, zero //Initialize sum register a4 with 0x0
+	add 	a2, a0, a1   // store count of 10 in register a2. Register a1 is loaded with 0xa (decimal 10) from main program
+	add	a3, a0, zero // initialize intermediate sum register a3 by 0
+loop:	add 	a4, a3, a4   // Incremental addition
+	addi 	a3, a3, 1    // Increment intermediate register by 1	
+	blt 	a3, a2, loop // If a3 is less than a2, branch to label named <loop>
+	add	a0, a4, zero // Store final result to register a0 so that it can be read by main program
+	ret
+```
+
+Next, compile the mentioned C program along with the ASM file using the RISC-V compiler tool.
+```
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o 1to9_custom_Ofast.o 1to9_custom.c load.S
+spike pk 1to9_custom_Ofast.o
+```
+The result of the execution is as shown below.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/loadres.png)
+
+The compiled assembly code of the main program is as shown below.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/asm.png)
+
+### Base Verification Flow
+Here we simulate and test the written C code on a RISC-V netlist written in verilog by converting the C code into HEX format and then running it on the RISC-V CPU which then displays the results.
+Type the following commands into the terminal to run.
+
+```
+chmod 777 rv32im.sh
+./rv32im.sh
+```
+
+The result of the above execution is as follows.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/rv32im.png)
+
+## Day 3
 
 
 ## Contributors
