@@ -210,7 +210,150 @@ The result of the above execution is as follows.
 ![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/rv32im.png)
 
 ## Day 3
+### TL Verilog
+Transactional-Level Verilog (TL-Verilog) is an extension of the traditional Verilog hardware description language that aims to simplify and enhance the design process for digital circuits. TL-Verilog introduces higher-level abstractions that allow designers to express complex functionalities more concisely and intuitively compared to traditional RTL (Register Transfer Level) design.
+TL-Verilog is the easiest way to write and edit Verilog with fewer bugs and is supported by Makerchip IDE which we will be using next.
 
+### Makerchip IDE
+Makerchip IDE is an integrated development environment designed for digital design and hardware description using modern hardware description languages like TL-Verilog and traditional Verilog. It provides a user-friendly web-based platform that combines coding, simulation, and visualization tools to facilitate the design and verification of digital circuits.
+It's particularly known for its support of TL-Verilog, allowing designers to leverage its higher-level abstractions for more efficient and intuitive circuit description.
+Below shown is an example of pythagoras equation in Makerchip.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerpyth.png)
+
+Next, to make an inverter in the IDE, type the following.
+```
+$out = !$in;
+```
+The result is as follows.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerinv.png)
+
+To make an AND gate.
+```
+$out = $in1 && $in2;
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerand.png)
+
+To make an OR gate.
+```
+$out = $in1 || $in2;
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makeror.png)
+
+To make an XOR gate.
+```
+$out = $in1 ^ $in2;
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerxor.png)
+
+To perform 4-bit vector addition.
+```
+$out[4:0] = $in1[3:0] + $in2[3:0];
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makervec.png)
+
+To make a 2:1 8-bit MUX gate.
+```
+$out[7:0] = $sel ? $in1[7:0] : $in0[7:0];
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makermux.png)
+
+To make a calculator to perform arithmetic operations.
+```
+$op[1:0] = $rand[1:0];
+$val1[31:0] = $rand1[3:0];
+$val2[31:0] = $rand2[3:0];
+
+$sum[31:0] = $val1 + $val2;
+$diff[31:0] = $val1 - $val2;
+$prod[31:0] = $val1 * $val2;
+$div[31:0] = $val1 / $val2;
+
+$out[31:0] = $op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum);
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makercalc.png)
+
+### Sequential Circuits
+To make a Fibonnaci series generator.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/fib.png)
+```
+$num[31:0] = $reset ? 1 : (>>1$num + >>2$num);
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerfib.png)
+
+To make a Free running counter.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/frc.png)
+```
+$cnt[31:0] = $reset ? 0 : (>>1$cnt + 1);
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerfrc.png)
+
+To make a combinatorial calculator and add sequential integration to it.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/seqcalc.png)
+```
+$op[1:0] = $rand[1:0];
+$val1[31:0] = >>1$out;
+$val2[31:0] = $rand2[3:0];
+
+$sum[31:0] = $val1 + $val2;
+$diff[31:0] = $val1 - $val2;
+$prod[31:0] = $val1 * $val2;
+$div[31:0] = $val1 / $val2;
+
+$out[31:0] = $op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum);
+```
+
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerseqcalc.png)
+
+### Pipelining
+Pipelining or timing abstract is an important feature in TL verilog as it can be implemented very easily with fewer codes as compared to system verilog which reduces bugs to a great extent.
+An example of this is exhibited in the pipelined pythagorean example.
+```
+   $aa = $rand1[3:0];
+   $bb = $rand2[3:0];
+
+   |calc
+      @1
+         $aa_sq[7:0] = $aa[3:0] * $aa[3:0];
+         $bb_sq[7:0] = $bb[3:0] * $bb[3:0];
+      @2
+         $cc_sq[8:0] = $aa_sq + $bb_sq;
+      @3
+         $cc[4:0] = sqrt($cc_sq);
+```
+The result is:
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerpippyth.png)
 
 ## Contributors
 * Aamod B K
@@ -226,3 +369,4 @@ The result of the above execution is as follows.
 ## References
 * VSD workshop -- https://www.vsdiat.com/
 * RISC-V ISA -- https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf
+* TL Verilog -- https://www.tl-x.org/
