@@ -355,6 +355,56 @@ The result is:
 
 ![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/makerpippyth.png)
 
+Another example is of a counter with a calculator using pipelining.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/counter_calc.png)
+
+The below image shows the implementation in makerchip.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/counter_calc_makerchip.png)
+
+Another example is of a 2 cycle calculator using pipelining.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/2_cyc_calc.png)
+
+The below image shows the implementation in makerchip.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/2_cyc_calc_makerchip.png)
+
+### Validity
+Validity in TL-Verilog refers to a concept related to the modeling of data and signals in Transaction-Level Verilog. Transactions represent higher-level operations or tasks that the digital circuit should perform. The concept of validity is typically used in the context of transactions to indicate whether the data within a transaction is valid or not.
+
+### Clock Gating
+Clock gating is a power-saving technique used in digital circuit design, particularly in synchronous digital systems, to reduce dynamic power consumption by selectively disabling (gating) the clock signal to certain circuit elements when they are not actively needed. This technique is particularly useful in modern ICs and microprocessors where power efficiency is a critical concern.
+
+### Examples of Validity
+#### Distance Accumulator
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/dist_acc.png)
+
+The below image shows the implementation in makerchip.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/dist_acc_makerchip.png)
+
+#### 2 Cycle Calculator
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/2_cyc_val.png)
+
+Below image shows the implementation in makerchip.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/2_cyc_val_makerchip.png)
+
+#### Calculator with single value memory
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/sing_val_calc.png)
+
+Below image shows the implementation in makerchip.
+
+![alt text](https://github.com/aamodbk/iiitb_RISCV_design/blob/main/sing_val_calc_makerchip.png)
+
+## Day 4
+
+
 ## Contributors
 * Aamod B K
 * Kunal Ghosh
